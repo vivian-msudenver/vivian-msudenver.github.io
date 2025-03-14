@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Lab4 web page</title>
+    <style>
+     
+      body {
+        width: 100%; 
+        background-color: black;
+        color: white;
+      }
+
+      #container {
+        width: 70%;
+        text-align: center;
+        margin: 20px auto;
+      }
+
+      #photo {
+        background-color: #333333;
+        margin-left: auto;
+        margin-right: 0;
+        float: right;
+        width: 200px;
+      }
+
+      #myphoto {
+        height: auto;
+        width: 150px;
+        border: 1px solid red;
+        border-radius: 50%;
+        padding: 5px;
+        display: block;
+        margin: auto;
+      }
+
+      p, td, li {
+        font-size: 16px;
+        font-family: Georgia;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: Georgia;
+        background-color: #333333;
+      }
+
+      a {
+        color: #9C27B0;
+      }
+
+      a:link {
+        background-color: #333333;
+      }
+
+      a:visited {
+        background-color: #7B1FA2;
+      }
+
+      a:hover {
+        background-color: #D32F2F;
+      }
+
+      #thingsIlove {
+        background-color: #800080;
+      }
+
+      #classes {
+        background-color: #800080;
+      }
+
+      #classesgrades {
+        width: 100%;
+        font-family: Georgia;
+        border-collapse: collapse;
+      }
+
+      #classesgrades th, #classesgrades td {
+        border: 3px solid #333333;
+        padding: 10px;
+      }
+
+      #classesgrades th {
+        font: bold 16px Georgia, serif;
+        background-color: #D2B48C;
+        text-align: left;
+        color: #9C27B0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <h1>My lab4 web page: howdy!</h1>
+      <p>This is the 4th lab for GIS 3410, Web Mapping, from MSU Denver</p>
+      <h3>About me</h3>
+      <div id="photo">
+        <img id="myphoto" src="IMG_6007.jpeg" alt="Daisey the cat"/>
+        <p class="caption">Daisey the cat</p>
+        <p class="caption">Photo by author</p>
+        I learn at <a href="https://www.msudenver.edu">MSU Denver</a>
+      </div>
+
+      <div id="thingsIlove">
+        <p>Here are four things about me and things I love the most: my baby sister, my car, my cat, and my big dog teddy</p>
+        <ol>
+          <li>My baby sister</li>
+          <li>My car</li>
+          <li>My cat</li>
+          <li>My dog Teddy</li>
+        </ol>
+      </div>
+
+      <div id="classes">
+        <p>Some other things about me, I am a geology major. Here are some classes I've taken</p>
+        <ul>
+          <li>Ig/Met Petrology</li>
+          <li>Structure and Mapping</li>
+          <li>1010 Intro to Geology</li>
+          <li>Historical Geology</li>
+        </ul>
+      </div>
+
+      <h3>Teachers that have taught me:</h3>
+      <table id="classesgrades">
+        <tr>
+          <th>Name</th>
+          <th>Year</th>
+          <th>Class</th>
+          <th>Grade</th>
+        </tr>
+
+        <tr>
+          <td>Dr. K</td>
+          <td>Junior</td>
+          <td>Ig &amp; Met Petrology</td>
+          <td>TBD</td>
+        </tr>
+
+        <tr>
+          <td>Dr. E</td>
+          <td>Junior</td>
+          <td>Structure &amp; Mapping</td>
+          <td>TBD</td>
+        </tr>
+
+        <tr>
+          <td>Dr. K</td>
+          <td>Sophomore</td>
+          <td>1010 Intro to Geology</td>
+          <td>A-</td>
+        </tr>
+
+        <tr>
+          <td>Dr. E</td>
+          <td>Sophomore</td>
+          <td>Historical Geology</td>
+          <td>A</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
