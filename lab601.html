@@ -91,14 +91,17 @@
    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
       $(document).ready(function(){
+        console.log("started JavaScript");
         //do this when click on the clicktoreveal1 button
         $("#clickroreveal1").click(function () {
 
           //run this when I click on this button
+           console.log("clicked on the 1st button");
           $("#div_ctrl1").html("Dr. K")
         });
 
           //do this when click on the clicktoreveal2 button
+        console.log("clicked on the 2nd button");
         $("#clickroreveal2").click(function () {
 
           //run this when I click on this button
@@ -106,7 +109,8 @@
         });
 
         // toggle the photo on and off
-        $("#togglephoto").click(funtion(){
+        console.log("clicked on the toggle photo button");
+        $("#togglephoto").click(funtion()){
           $("#myphoto").fadetoggle(1000, "linear");
         });
           
