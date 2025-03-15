@@ -3,7 +3,6 @@
   <head>
     <title>My Lab6 web page</title>
     <style>
-     
       body {
         width: 100%; 
         background-color: black;
@@ -85,35 +84,35 @@
         text-align: left;
         color: #9C27B0;
       }
-    
     </style>
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
       $(document).ready(function(){
         console.log("started JavaScript");
-        //do this when click on the clicktoreveal1 button
-        $("#clickroreveal1").click(function () {
 
-          //run this when I click on this button
-           console.log("clicked on the 1st button");
-          $("#div_ctrl1").html("Dr. K")
+        // run this when I click on this button- reveal teacher name
+        $("#clicktoreveal1").click(function () {
+          console.log("clicked on the 1st button");
+          $("#div_ctrl1").html("Dr. K");
         });
 
-          //do this when click on the clicktoreveal2 button
-        console.log("clicked on the 2nd button");
-        $("#clickroreveal2").click(function () {
-
-          //run this when I click on this button
-          $("#div_ctrl2").html("Dr. E")
+        // do this when click on the clicktoreveal2 button - reveal teacher name
+        $("#clicktoreveal2").click(function () {
+          console.log("clicked on the 2nd button");
+          $("#div_ctrl2").html("Dr. E");
         });
 
         // toggle the photo on and off
         console.log("clicked on the toggle photo button");
-        $("#togglephoto").click(funtion()){
-          $("#myphoto").fadetoggle(1000, "linear");
+        $("#togglephoto").click(function(){
+          $("#myphoto").fadeToggle(1000, "linear");
         });
-          
+
+        // show hidden text when clicking the appear button
+        $("#appear").click(function(){
+          console.log("someone clicked on button appear.");
+          $("#hidden_text").text("Cats are amazing");  
         });
       });
     </script>
@@ -130,7 +129,7 @@
         <p class="caption">Daisey the cat</p>
         <p class="caption">Photo by author</p>
         I learn at <a href="https://www.msudenver.edu">MSU Denver</a>
-        <button id-"togglephoto">Toggle the photo on/off.</button>
+        <button id="togglephoto">Toggle the photo on/off.</button>
       </div>
 
       <div id="thingsIlove">
@@ -141,6 +140,10 @@
           <li>My cat</li>
           <li>My dog Teddy</li>
         </ol>
+      </div>
+
+      <div id="hidden_text">
+        <button id="appear">Click here to see the hidden text!</button>
       </div>
 
       <div id="classes">
@@ -163,14 +166,14 @@
         </tr>
 
         <tr>
-          <td><div id="div_ctr1"><button id="clicktoreveal1"></div>Click to reveal...</button></td>
+          <td><div id="div_ctrl1"><button id="clicktoreveal1">Click to reveal...</button></div></td>
           <td>Junior</td>
           <td>Ig &amp; Met Petrology</td>
           <td>TBD</td>
         </tr>
 
         <tr>
-          <td><div id="div_ctr2"><button id="clicktoreveal1"></div><button id="clicktoreveal2">Click to reveal...</button></td>
+          <td><div id="div_ctrl2"><button id="clicktoreveal2">Click to reveal...</button></div></td>
           <td>Junior</td>
           <td>Structure &amp; Mapping</td>
           <td>TBD</td>
@@ -192,4 +195,5 @@
       </table>
     </div>
   </body>
+</html>
 </html>
