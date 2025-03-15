@@ -94,17 +94,23 @@
         //do this when click on the clicktoreveal1 button
         $("#clickroreveal1").click(function () {
 
-          //run this when Iclilck on this button
+          //run this when I click on this button
           $("#div_ctrl1").html("Dr. K")
         });
 
           //do this when click on the clicktoreveal2 button
         $("#clickroreveal2").click(function () {
 
-          //run this when Iclilck on this button
+          //run this when I click on this button
           $("#div_ctrl2").html("Dr. E")
         });
-        
+
+        // toggle the photo on and off
+        $("#togglephoto").click(funtion(){
+          $("#myphoto").fadetoggle();
+        });
+          
+        });
       });
     </script>
 
@@ -114,11 +120,13 @@
       <h1>My lab6 web page: howdy!</h1>
       <p>This is the 4th lab for GIS 3410, Web Mapping, from MSU Denver</p>
       <h3>About me</h3>
+      
       <div id="photo">
         <img id="myphoto" src="IMG_6007.jpeg" alt="Daisey the cat"/>
         <p class="caption">Daisey the cat</p>
         <p class="caption">Photo by author</p>
         I learn at <a href="https://www.msudenver.edu">MSU Denver</a>
+        <button id-"togglephoto">Toggle the photo on/off.</button>
       </div>
 
       <div id="thingsIlove">
