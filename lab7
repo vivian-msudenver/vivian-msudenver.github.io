@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Lab4 web page.</title>
+  </head>
+  <body>
+    <h1>My lab4 web page: howdy!</h1>
+    <p>This is the 4th lab for GIS 3410, Web Mapping, from MSU Denver</p>
+    <h3> About me </h3>
+    <p> Here are four things about me and things I love the most: my baby sister, my car, my cat, and my big dog teddy </p>
+  </body>
+</html> 
