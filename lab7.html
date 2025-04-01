@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Lab4 web page.</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+    <style>
+      #map { height: 180px; }
+    </style>
+  </head>
+  <body>
+    <h1>My lab7 web page: howdy!</h1>
+    <p>This is the 4th lab for GIS 3410, Web Mapping, from MSU Denver</p>
+    <h3> About me </h3>
+    <p> Here are four things about me and things I love the most: my baby sister, my car, my cat, and my big dog teddy </p>
+    
+    <div id="map"></div>
+
+    <script>
+      var map = L.map('map').setView([51.505, -0.09], 13);
+      
+      L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+      }).addTo(map);
+    </script>
+  </body>
+</html>
+
