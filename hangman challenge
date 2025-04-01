@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+<head>
+  <title>Hangman!</title>
+  <style>
+    #alphabet { margin: auto; padding: 20px; }
+    #word { margin: auto; font: 400em serif bold; padding: 20px; }
+    #info { padding: 20px; font-color: red; background-color: yellow; }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function() {
+
+       word = "k i t t y";
+       blank = "- - - - -";
+      $("#word").text(blank);
+
+       triedLetters = "";
+       tries = 10;
+      $("#guesses").text("Guesses left: " + tries);
+
+       gameWon = false;
+       gameLost = false;
+
+      $(".letter").click(function() {
+        if (!gameWon && !gameLost) {
+           $(this).css("color", "red");
+
+          
+          $("#info").text("");
+
+           letter = $(this).text();
+          console.log("clicked on: ", letter);
+
+          $(this).css("text-decoration", "line-through");
+
+         
+          if (triedLetters.includes(letter)) {
+            $("#info").text("Letter " + letter + " already tried.");
+          } else if (!word.includes(letter)) {
+           
+            tries-;
+            $("#guesses").text("Mistakes left: " + tries);
+
+            if (tries < 1) {
+              gameLost = true;
+              $("#info").text("Sorry, you are out of guesses! You LOSE");
+            }
+          } else {
+            
+            while (word.includes(letter)) {
+               index = word.indexOf(letter);
+              console.log("index of word is " + index);
+              word = word.substring(0, index) + letter + word.substring(index + 1);
+              blank = blank.substring(0, index * 2) + letter + blank.substring(index * 2 + 2);
+
+              $("#word").text(blank);
+              console.log("word is ", word);
+              console.log("blank is ", blank);
+            }
+
+           
+            if (!blank.includes("-")) {
+              gameWon = true;
+              $("#info").text("You WON! Well done!");
+            }
+          }
+
+         
+          triedLetters += letter;
+          console.log("triedLetters is", triedLetters);
+          console.log("word is", word);
+        }
+      });
+
+    });
+  </script>
+</head>
+<body>
+  <h1>Let's play Hangman!</h1>
+  <div id="guesses"></div>
+  <div id="info"></div>
+  <div id="word"></div>
+  <div id="alphabet">
+    <p>Click to make a guess!</p>
+    <span class="letter" id="a">a</span>
+    <span class="letter" id="b">b</span>
+    <span class="letter" id="c">c</span>
+    <span class="letter" id="d">d</span>
+    <span class="letter" id="e">e</span>
+    <span class="letter" id="f">f</span>
+    <span class="letter" id="g">g</span>
+    <span class="letter" id="h">h</span>
+    <span class="letter" id="i">i</span>
+    <span class="letter" id="j">j</span>
+    <span class="letter" id="k">k</span>
+    <span class="letter" id="l">l</span>
+    <span class="letter" id="m">m</span>
+    <span class="letter" id="n">n</span>
+    <span class="letter" id="o">o</span>
+    <span class="letter" id="p">p</span>
+    <span class="letter" id="q">q</span>
+    <span class="letter" id="r">r</span>
+    <span class="letter" id="s">s</span>
+    <span class="letter" id="t">t</span>
+    <span class="letter" id="u">u</span>
+    <span class="letter" id="v">v</span>
+    <span class="letter" id="w">w</span>
+    <span class="letter" id="x">x</span>
+    <span class="letter" id="y">y</span>
+    <span class="letter" id="z">z</span>
+  </div>
+</body>
+</html>
