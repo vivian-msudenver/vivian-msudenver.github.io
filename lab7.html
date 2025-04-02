@@ -11,7 +11,7 @@
     <style>
      
       #map { 
-        height: 400px; width: 400px; 
+        height: 400px; width: 100%; 
       }
 
      
@@ -79,18 +79,18 @@
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
       }).addTo(map);
 
-      // Marker with popup
+     
       var marker = L.marker([40.3777, -105.5200]).addTo(map);
       marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
 
-      // Circle with popup
-      var circle = L.circle([40.3777, -105.5200], {
+    
+      var circle = L.circle([40.3770, -105.5190], {
         color: 'red',
         fillColor: '#f03',
         fillOpacity: 0.5,
-        radius: 500
+        radius: 350
       }).addTo(map);
-      circle.bindPopup("I am a circle.");
+      circle.bindPopup("This is main Town Strip");
 
       
       var polygon = L.polygon([
@@ -99,19 +99,19 @@
         [40.3783, -105.5170], 
         [40.3783, -105.5188]  
       ]).addTo(map);
-      polygon.bindPopup("I am a polygon.");
+      polygon.bindPopup("This is the Stanley Hotel");
 
      
       var popup = L.popup()
         .setLatLng([40.3799, -105.5188])
-        .setContent("I am a standalone popup.")
+        .setContent("This is the town hall")
         .openOn(map);
 
      
       function onMapClick(e) {
         popup
           .setLatLng(e.latlng)
-          .setContent("You clicked the map at " + e.latlng.toString())
+          .setContent("You clicked the map at Estes Park " + e.latlng.toString())
           .openOn(map);
       }
 
