@@ -76,10 +76,37 @@
 
  
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
+
+      //function define to style my cholro map
+      function style1 (feature) {
+      
+        d =feauture.properties.PCT_POVERTY;
+        answer = d > 30 ? '#800026':
+          d > 20 ? '#DB0026':
+          d > 15 ? '#E31A1C':
+           d > 10 ? '#FC4E2A':
+           d > 5 ? '#FCD8D3CF':
+          d > 3 ? '#FEB24C':
+           d > 1 ? '#FED976':
+          '#FFEDA0';
+        styleReturn = {
+          fillColor : answer,
+          weight: 1,
+          opacity : 1, 
+          color : 'white',
+          dashArray : '3',
+          fillOpacity : 0.7
+        };
+        return styleReturn;
+        
+      }
+      style1(feature);
+
   $.getJSON('./acs_denver_2021.geojson', function(data){
 
     // convert the file into a layer
-    acsDenver2021Layer = L.geoJSON(data).addTo(map);
+    acsDenver2021Layer = L.geoJSON(data
+                                   {style:style1}).addTo(map);
 
     //move the map to the area of the data
     map.panTo(acsDenver2021Layer.getBounds().getCenter());
