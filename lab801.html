@@ -87,10 +87,12 @@
     layerControl.addOverlay(acsDenver2021Layer, "Census 2021")
   });
       // Load RTD Park-N-Ride GeoJSON data from remote server
-      $.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_TRANS_RTDPARKNRIDE_P/FeatureServer/280/query?outFields=*&where=1%3D1&f=geojson', function (data) {
+      $.getJSON('https://services7.arcgis.com/chFtbDhOWTyv6vVj/arcgis/rest/services/Landside_Building/FeatureServer/1/query?outFields=*&where=1%3D1&f=geojson', function (data) {
         var newLayer = L.geoJSON(data).addTo(map);
         layerControl.addOverlay(newLayer, "RTD Park-N-Ride");
       });
+
+      
 
     });
   </script>
