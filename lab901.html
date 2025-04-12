@@ -80,42 +80,40 @@
       //function define to style my cholro map
       function style1 (feature) {
       
-        d =feauture.properties.PCT_POVERTY;
-        answer = d > 30 ? '#800026':
-          d > 20 ? '#DB0026':
-          d > 15 ? '#E31A1C':
-           d > 10 ? '#FC4E2A':
-           d > 5 ? '#FCD8D3CF':
-          d > 3 ? '#FEB24C':
-           d > 1 ? '#FED976':
-          '#FFEDA0';
-        styleReturn = {
-          fillColor : answer,
-          weight: 1,
-          opacity : 1, 
-          color : 'white',
-          dashArray : '3',
-          fillOpacity : 0.7
-        };
-        return styleReturn;
-        
-      }
-      style1(feature);
+  function style1(feature) {
+  var d = feature.properties.PCT_POVERTY;
+  var answer = d > 30 ? '#800026' :
+               d > 20 ? '#DB0026' :
+               d > 15 ? '#E31A1C' :
+               d > 10 ? '#FC4E2A' :
+               d > 5  ? '#FCD8D3CF' :
+               d > 3  ? '#FEB24C' :
+               d > 1  ? '#FED976' :
+                        '#FFEDA0';
+  return {
+    fillColor: answer,
+    weight: 1,
+    opacity: 1,
+    color: 'white',
+    dashArray: '3',
+    fillOpacity: 0.7
+  };
+}
 
-  $.getJSON('./acs_denver_2021.geojson', function(data){
 
-    // convert the file into a layer
-    acsDenver2021Layer = L.geoJSON(data
-                                   {style:style1,
-                                    onEachFeature: function(feature, layer){
-                                        layer.bindPopup("Percet Poverty: " + feature.properties.PCT_POVERTY + "%");
-                                    }}).addTo(map);
 
-    //move the map to the area of the data
-    map.panTo(acsDenver2021Layer.getBounds().getCenter());
-    //add layer to the layercontrol 
-    layerControl.addOverlay(acsDenver2021Layer, "Census 2021")
-  });
+$.getJSON('./acs_denver_2021.geojson', function(data) {
+  var acsDenver2021Layer = L.geoJSON(data, {
+    style: style1,
+    onEachFeature: function(feature, layer) {
+      layer.bindPopup("Percent Poverty: " + feature.properties.PCT_POVERTY + "%");
+    }
+  }).addTo(map);
+
+  map.panTo(acsDenver2021Layer.getBounds().getCenter());
+  layerControl.addOverlay(acsDenver2021Layer, "Census 2021");
+});
+
     
       $.getJSON('https://services7.arcgis.com/chFtbDhOWTyv6vVj/arcgis/rest/services/Landside_Building/FeatureServer/1/query?outFields=*&where=1%3D1&f=geojson', function (data) {
         var newLayer = L.geoJSON(data).addTo(map);
