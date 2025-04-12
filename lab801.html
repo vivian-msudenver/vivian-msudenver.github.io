@@ -76,7 +76,7 @@
 
       // Add layer control
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
-  $.getJSON('./acs_denver_2021geojson', function(data){
+  $.getJSON('./acs_denver_2021.geojson', function(data){
 
     // convert the file into a layer
     acsDenver2021Layer = L.geoJSON(data).addTo(map);
