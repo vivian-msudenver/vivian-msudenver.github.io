@@ -76,7 +76,16 @@
 
       // Add layer control
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
+  $.getJSON('./acs_denver_2021geojson', function(data){
 
+    // convert the file into a layer
+    acsDenver2021Layer = L.geoJSON(data).addTo(map);
+
+    //move the map to the area of the data
+    map.panTo(acsDenver2021Layer.getBounds().getCenter());
+    //add layer to the layercontrol 
+    layerControl.addOverlay(acsDenver2021Layer, "Census 2021")
+  });
       // Load RTD Park-N-Ride GeoJSON data from remote server
       $.getJSON('https://services1.arcgis.com/zdB7qR0BtYrg0Xpl/arcgis/rest/services/ODC_TRANS_RTDPARKNRIDE_P/FeatureServer/280/query?outFields=*&where=1%3D1&f=geojson', function (data) {
         var newLayer = L.geoJSON(data).addTo(map);
