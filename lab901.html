@@ -3,13 +3,10 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Lab 8 - Denver Neighborhood Data</title>
+  <title>Lab 9 - Denver Neighborhood Data</title>
 
- 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
-  
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
   <style>
@@ -48,10 +45,9 @@
 
   <script>
     $(document).ready(function () {
-      
+
       var map = L.map('map').setView([39.7392, -104.9903], 11);
 
-      
       var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -67,61 +63,49 @@
         attribution: 'Map data: &copy; OpenStreetMap contributors, SRTM | Map style: OpenTopoMap (CC-BY-SA)'
       });
 
-      
       var baseMaps = {
         "OpenStreetMap": OSMTiles,
         "Humanitarian OSM": HOTOSMTiles,
         "OpenTopoMap": OpenTopoMap
       };
 
- 
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
 
-      //function define to style my cholro map
-     
-      
-  function style1(feature) {
-  var d = feature.properties.PCT_POVERTY;
-  var answer = d > 30 ? '#800026' :
-               d > 20 ? '#DB0026' :
-               d > 15 ? '#E31A1C' :
-               d > 10 ? '#FC4E2A' :
-               d > 5  ? '#FCD8D3CF' :
-               d > 3  ? '#FEB24C' :
-               d > 1  ? '#FED976' :
-                        '#FFEDA0';
-  return {
-    fillColor: answer,
-    weight: 1,
-    opacity: 1,
-    color: 'white',
-    dashArray: '3',
-    fillOpacity: 0.7
-  };
-}
+      function style1(feature) {
+        var d = feature.properties.KINDERGARTEN;  // Use the correct field name "KINDERGARTEN"
+        var answer = d > 50 ? '#800026' :
+                     d > 40 ? '#DB0026' :
+                     d > 30 ? '#E31A1C' :
+                     d > 20 ? '#FC4E2A' :
+                     d > 10  ? '#FEB24C' :
+                     d > 5   ? '#FED976' :
+                               '#FFEDA0'; // The lowest color for the lowest number of kindergartens
+        return {
+          fillColor: answer,
+          weight: 1,
+          opacity: 1,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.7
+        };
+      }
 
+      $.getJSON('./acs_denver_2021.geojson', function(data) {
+        var acsDenver2021Layer = L.geoJSON(data, {
+          style: style1,
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("Number of Kindergartens: " + feature.properties.KINDERGARTEN);
+          }
+        }).addTo(map);
 
+        map.panTo(acsDenver2021Layer.getBounds().getCenter());
+        layerControl.addOverlay(acsDenver2021Layer, "Census 2021");
+      });
 
-$.getJSON('./acs_denver_2021.geojson', function(data) {
-  var acsDenver2021Layer = L.geoJSON(data, {
-    style: style1,
-    onEachFeature: function(feature, layer) {
-      layer.bindPopup("Percent Poverty: " + feature.properties.PCT_POVERTY + "%");
-    }
-  }).addTo(map);
-
-  map.panTo(acsDenver2021Layer.getBounds().getCenter());
-  layerControl.addOverlay(acsDenver2021Layer, "Census 2021");
-});
-
-    
       $.getJSON('https://services7.arcgis.com/chFtbDhOWTyv6vVj/arcgis/rest/services/Landside_Building/FeatureServer/1/query?outFields=*&where=1%3D1&f=geojson', function (data) {
         var newLayer = L.geoJSON(data).addTo(map);
         layerControl.addOverlay(newLayer, "RTD Park-N-Ride");
       });
-
-      
-
     });
   </script>
 </head>
