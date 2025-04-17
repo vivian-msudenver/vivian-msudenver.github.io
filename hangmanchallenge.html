@@ -5,7 +5,7 @@
   <style>
     #alphabet { margin: auto; padding: 20px; }
     #word { margin: auto; font: 400em serif bold; padding: 20px; }
-    #info { padding: 20px; font-color: red; background-color: yellow; }
+   #info { padding: 20px; color: red; background-color: yellow;  }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
@@ -39,7 +39,7 @@
             $("#info").text("Letter " + letter + " already tried.");
           } else if (!word.includes(letter)) {
            
-            tries-;
+            tries--;
             $("#guesses").text("Mistakes left: " + tries);
 
             if (tries < 1) {
@@ -48,11 +48,16 @@
             }
           } else {
             
-            while (word.includes(letter)) {
-               index = word.indexOf(letter);
-              console.log("index of word is " + index);
-              word = word.substring(0, index) + letter + word.substring(index + 1);
-              blank = blank.substring(0, index * 2) + letter + blank.substring(index * 2 + 2);
+           
+            let index = word.indexOf(letter);
+         
+          while (index !== -1) {
+          console.log("index of word is " + index);
+          blank = blank.substring(0, index * 2) + letter + blank.substring(index * 2 + 1);
+          $("#word").text(blank);
+          index = word.indexOf(letter, index + 2);
+}
+
 
               $("#word").text(blank);
               console.log("word is ", word);
