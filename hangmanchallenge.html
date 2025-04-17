@@ -5,40 +5,38 @@
   <style>
     #alphabet { margin: auto; padding: 20px; }
     #word { margin: auto; font: 400em serif bold; padding: 20px; }
-   #info { padding: 20px; color: red; background-color: yellow;  }
+    #info { padding: 20px; color: red; background-color: yellow; }
   </style>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script>
     $(document).ready(function() {
 
-       word = "k i t t y";
-       blank = "- - - - -";
+      word = "k i t t y";
+      blank = "- - - - -";
       $("#word").text(blank);
 
-       triedLetters = "";
-       tries = 10;
+      triedLetters = "";
+      tries = 10;
       $("#guesses").text("Guesses left: " + tries);
 
-       gameWon = false;
-       gameLost = false;
+      gameWon = false;
+      gameLost = false;
 
       $(".letter").click(function() {
         if (!gameWon && !gameLost) {
-           $(this).css("color", "red");
+          $(this).css("color", "red");
 
-          
           $("#info").text("");
 
-           letter = $(this).text();
+          letter = $(this).text();
           console.log("clicked on: ", letter);
 
           $(this).css("text-decoration", "line-through");
 
-         
           if (triedLetters.includes(letter)) {
             $("#info").text("Letter " + letter + " already tried.");
           } else if (!word.includes(letter)) {
-           
+
             tries--;
             $("#guesses").text("Mistakes left: " + tries);
 
@@ -47,31 +45,24 @@
               $("#info").text("Sorry, you are out of guesses! You LOSE");
             }
           } else {
-            
-           
-            let index = word.indexOf(letter);
-         
-          while (index !== -1) {
-          console.log("index of word is " + index);
-          blank = blank.substring(0, index * 2) + letter + blank.substring(index * 2 + 1);
-          $("#word").text(blank);
-          index = word.indexOf(letter, index + 2);
-}
-
-
+            index = word.indexOf(letter);
+            while (index !== -1) {
+              console.log("index of word is " + index);
+              blank = blank.substring(0, index * 2) + letter + blank.substring(index * 2 + 1);
               $("#word").text(blank);
-              console.log("word is ", word);
-              console.log("blank is ", blank);
+              index = word.indexOf(letter, index + 2);
             }
 
-           
+            $("#word").text(blank);
+            console.log("word is ", word);
+            console.log("blank is ", blank);
+
             if (!blank.includes("-")) {
               gameWon = true;
               $("#info").text("You WON! Well done!");
             }
           }
 
-         
           triedLetters += letter;
           console.log("triedLetters is", triedLetters);
           console.log("word is", word);
