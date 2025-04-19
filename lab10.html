@@ -41,26 +41,26 @@
       text-decoration: none;
       color: inherit;
     }
+
     .legend {
-    line-height: 18px; 
-      color: #555; 
+      line-height: 18px;
+      color: #555;
       background-color: #eeeeee;
-      Padding: 2px;
-      
+      padding: 6px;
+      font-size: 12px;
     }
+
     .legend i {
-      width: 18px; 
-      height:18px;
+      width: 18px;
+      height: 18px;
       float: left;
-      margin-right: 8 px;
-      opacity: 0.8; 
-      
+      margin-right: 8px;
+      opacity: 0.8;
     }
   </style>
 
   <script>
     $(document).ready(function () {
-
       var map = L.map('map').setView([39.7392, -104.9903], 11);
 
       var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -87,16 +87,17 @@
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
 
       function style1(feature) {
-        var d = feature.properties.KINDERGARTEN;  // Use the correct field name "KINDERGARTEN"
-        var answer = d > 50 ? '#800026' :
-                     d > 40 ? '#DB0026' :
-                     d > 30 ? '#E31A1C' :
-                     d > 20 ? '#FC4E2A' :
-                     d > 10  ? '#FEB24C' :
-                     d > 5   ? '#FED976' :
-                               '#FFEDA0'; // The lowest color for the lowest number of kindergartens
+        var d = feature.properties.KINDERGARTEN;
+        var color = d > 50 ? '#800026' :
+                    d > 40 ? '#DB0026' :
+                    d > 30 ? '#E31A1C' :
+                    d > 20 ? '#FC4E2A' :
+                    d > 10 ? '#FEB24C' :
+                    d > 5  ? '#FED976' :
+                             '#FFEDA0';
+
         return {
-          fillColor: answer,
+          fillColor: color,
           weight: 1,
           opacity: 1,
           color: 'white',
@@ -109,12 +110,12 @@
         var acsDenver2021Layer = L.geoJSON(data, {
           style: style1,
           onEachFeature: function(feature, layer) {
-            layer.bindPopup("Number of Kindergartens: " + feature.properties.KINDERGARTEN);
+            var popupContent = "<strong>Neighborhood:</strong> " + (feature.properties.NEIGHBORHOOD || 'Unknown') +
+                               "<br><strong>Kindergartens:</strong> " + feature.properties.KINDERGARTEN;
+            layer.bindPopup(popupContent);
           }
         }).addTo(map);
 
-
-  
         map.panTo(acsDenver2021Layer.getBounds().getCenter());
         layerControl.addOverlay(acsDenver2021Layer, "Census 2021");
       });
@@ -124,12 +125,25 @@
         layerControl.addOverlay(newLayer, "RTD Park-N-Ride");
       });
 
-  var legnend =L.control ({position: 'bottomright'});
-      legend.onAdd= function(map) {
+      var legend = L.control({ position: 'bottomright' });
 
-        var div=L.DomUtil.create('div', 'info legend');
+      legend.onAdd = function(map) {
+        var div = L.DomUtil.create('div', 'info legend');
+        var grades = [0, 5, 10, 20, 30, 40, 50];
+        var colors = ['#FFEDA0', '#FED976', '#FEB24C', '#FC4E2A', '#E31A1C', '#DB0026', '#800026'];
+
+        div.innerHTML += '<h3>Kindergartens</h3>';
+
+        for (var i = 0; i < grades.length; i++) {
+          div.innerHTML +=
+            '<i style="background:' + colors[i] + '"></i> ' +
+            grades[i] + (grades[i + 1] ? '&ndash;' + grades[i + 1] + '<br>' : '+');
+        }
+
+        return div;
       };
-      
+
+      legend.addTo(map);
     });
   </script>
 </head>
@@ -142,3 +156,4 @@
   <div id="map"></div>
 </body>
 </html>
+
