@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Doctor Who Map: TARDIS Sightings in Denver</title>
+
+  <!-- Leaflet and jQuery -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Garamond', serif;
+      background-color: #0c0c1b;
+      color: #ffffff;
+    }
+
+    #map {
+      width: 100%;
+      height: 70%;
+    }
+
+    #header {
+      text-align: center;
+      padding: 10px;
+    }
+
+    h1 {
+      color: #00c9ff;
+      font-size: 24px;
+    }
+
+    p, a {
+      color: #00c9ff;
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .legend {
+      background: rgba(0, 0, 0, 0.6);
+      color: #fff;
+      padding: 8px;
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .legend i {
+      width: 18px;
+      height: 18px;
+      float: left;
+      margin-right: 8px;
+      opacity: 0.8;
+    }
+
+    #toggleTardis {
+      margin: 10px auto;
+      display: block;
+      background-color: #2575fc;
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+
+  <script>
+    $(document).ready(function () {
+      var map = L.map('map').setView([39.7392, -104.9903], 11);
+
+      // Sci-fi themed tile layer
+      var DarkMatter = L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; <a href="https://carto.com/">CartoDB</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }).addTo(map);
+
+      var baseMaps = {
+        "Dark Matter": DarkMatter
+      };
+
+      var layerControl = L.control.layers(baseMaps, null).addTo(map);
+
+      // Style neighborhoods with TARDIS-blue palette
+      function style1(feature) {
+        var d = feature.properties.KINDERGARTEN;
+        var color = d > 50 ? '#0f0c29' :
+                    d > 40 ? '#302b63' :
+                    d > 30 ? '#24243e' :
+                    d > 20 ? '#6a11cb' :
+                    d > 10 ? '#2575fc' :
+                    d > 5  ? '#00c9ff' :
+                             '#92fe9d';
+
+        return {
+          fillColor: color,
+          weight: 1,
+          opacity: 1,
+          color: 'white',
+          dashArray: '3',
+          fillOpacity: 0.7
+        };
+      }
+
+      // Denver ACS Data Layer
+      $.getJSON('./acs_denver_2021.geojson', function(data) {
+        var acsDenver2021Layer = L.geoJSON(data, {
+          style: style1,
+          onEachFeature: function(feature, layer) {
+            var popupContent = "<strong>Sector:</strong> " + (feature.properties.NEIGHBORHOOD || 'Unknown') +
+                               "<br><strong>Potential Companions:</strong> " + feature.properties.KINDERGARTEN;
+            layer.bindPopup(popupContent);
+          }
+        }).addTo(map);
+
+        map.panTo(acsDenver2021Layer.getBounds().getCenter());
+        layerControl.addOverlay(acsDenver2021Layer, "2021 Census Data");
+      });
+
+      // TARDIS Sightings Layer (fictional data file)
+      var tardisLayer;
+
+      $.getJSON('./tardis_locations.geojson', function(data) {
+        tardisLayer = L.geoJSON(data, {
+          pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {
+              icon: L.icon({
+                iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Doctor_Who_logo_TARDIS.svg',
+                iconSize: [32, 32],
+                iconAnchor: [16, 32],
+                popupAnchor: [0, -32]
+              })
+            });
+          },
+          onEachFeature: function(feature, layer) {
+            layer.bindPopup("<strong>TARDIS Landing Site</strong><br>Doctor: " + feature.properties.doctor + "<br>Year: " + feature.properties.year);
+          }
+        }).addTo(map);
+
+        layerControl.addOverlay(tardisLayer, "TARDIS Sightings");
+      });
+
+      // jQuery button to toggle TARDIS layer
+      $('#toggleTardis').click(function () {
+        if (map.hasLayer(tardisLayer)) {
+          map.removeLayer(tardisLayer);
+        } else {
+          map.addLayer(tardisLayer);
+        }
+      });
+
+      // Custom Legend
+      var legend = L.control({ position: 'bottomright' });
+      legend.onAdd = function(map) {
+        var div = L.DomUtil.create('div', 'legend');
+        var grades = [0, 5, 10, 20, 30, 40, 50];
+        var colors
