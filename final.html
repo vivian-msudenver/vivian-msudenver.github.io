@@ -31,19 +31,17 @@
       margin-top: 20px;
     }
 
-    .legend {
-      line-height: 18px;
-      background-color: #eee;
-      padding: 6px;
-      font-size: 12px;
+    .popup-heading {
+      color: white;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
     }
 
-    .legend i {
-      width: 18px;
-      height: 18px;
-      float: left;
-      margin-right: 8px;
-      opacity: 0.8;
+    .popup-text {
+      color: yellow;
+      font-size: 14px;
+      margin-bottom: 10px;
     }
   </style>
 </head>
@@ -69,30 +67,109 @@
 
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
 
-      // Load TARDIS GeoJSON data
-      $.getJSON('./tardis_locations.geojson', function(data) {
-        var tardisLayer = L.geoJSON(data, {
-          pointToLayer: function(feature, latlng) {
-            return L.marker(latlng, {
-              icon: L.icon({
-                iconUrl: 'https://example.com/path/to/your/image.png', // Replace this URL with your image URL
-                iconSize: [50, 50], // Adjust the size as necessary
-                iconAnchor: [25, 50], // Anchor at the bottom center
-                popupAnchor: [0, -50] // Position the popup above the image
-              })
-            });
+      // GeoJSON data for TARDIS sightings
+      var tardisLocations = {
+        "type": "FeatureCollection",
+        "features": [
+          {
+            "type": "Feature",
+            "properties": {
+              "doctor": "The First Doctor",
+              "year": "1963",
+              "description": "The First Doctor's adventures took him to Earth in 1963, where the TARDIS made its first appearance. This marked the beginning of an era where the Doctor could travel through time and space."
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-0.1278, 51.5074]
+            }
           },
-          onEachFeature: function(feature, layer) {
-            layer.bindPopup(
-              "<strong>TARDIS Landing Site</strong><br>" +
-              "Doctor: " + feature.properties.doctor + "<br>" +
-              "Year: " + feature.properties.year
-            );
+          {
+            "type": "Feature",
+            "properties": {
+              "doctor": "The Fourth Doctor",
+              "year": "1977",
+              "description": "The Fourth Doctor, famously portrayed by Tom Baker, made an iconic appearance in London in 1977. His era is known for its eccentric style and memorable adventures."
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-0.1246, 51.5007]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "doctor": "The Tenth Doctor",
+              "year": "2006",
+              "description": "In 2006, the Tenth Doctor, played by David Tennant, landed in London. Known for his wit and charm, the Tenth Doctor faced numerous challenges during his time in the TARDIS."
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-0.1420, 51.5014]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "doctor": "The Eleventh Doctor",
+              "year": "2011",
+              "description": "The Eleventh Doctor, portrayed by Matt Smith, arrived in London in 2011. With his signature bow tie and quirky personality, he was a fan-favorite among viewers."
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-0.1340, 51.5094]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "doctor": "The Thirteenth Doctor",
+              "year": "2018",
+              "description": "Jodie Whittaker's Thirteenth Doctor brought a new dynamic to the Doctor Who universe. Her adventures in London in 2018 continue to resonate with fans."
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-0.1195, 51.5033]
+            }
+          },
+          {
+            "type": "Feature",
+            "properties": {
+              "doctor": "The Fifteenth Doctor",
+              "year": "2024",
+              "description": "The Fifteenth Doctor, played by Ncuti Gatwa, made waves in 2024, bringing new energy and stories to the TARDIS as the latest incarnation of the Doctor."
+            },
+            "geometry": {
+              "type": "Point",
+              "coordinates": [-0.0761, 51.5081]
+            }
           }
-        }).addTo(map);
+        ]
+      };
 
-        layerControl.addOverlay(tardisLayer, "TARDIS Sightings");
-      });
+      var tardisLayer = L.geoJSON(tardisLocations, {
+        pointToLayer: function(feature, latlng) {
+          return L.marker(latlng, {
+            icon: L.icon({
+              iconUrl: 'https://example.com/path/to/your/image.png', // Replace this URL with your image URL
+              iconSize: [50, 50], // Adjust the size as necessary
+              iconAnchor: [25, 50], // Anchor at the bottom center
+              popupAnchor: [0, -50] // Position the popup above the image
+            })
+          });
+        },
+        onEachFeature: function(feature, layer) {
+          var popupContent = '<div class="popup-heading">Doctor: ' + feature.properties.doctor + '</div>' +
+                             '<div class="popup-text">Year of Appearance: ' + feature.properties.year + '</div>' +
+                             '<div class="popup-heading">Location:</div>' +
+                             '<div class="popup-text">Coordinates: ' + feature.geometry.coordinates[1].toFixed(4) + ', ' + feature.geometry.coordinates[0].toFixed(4) + '</div>' +
+                             '<div class="popup-heading">Description:</div>' +
+                             '<div class="popup-text">' + feature.properties.description + '</div>';
+
+          layer.bindPopup(popupContent);
+        }
+      }).addTo(map);
+
+      layerControl.addOverlay(tardisLayer, "TARDIS Sightings");
     });
   </script>
 </body>
