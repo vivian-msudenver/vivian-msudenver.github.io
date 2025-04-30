@@ -49,7 +49,7 @@
 
   <script>
     $(document).ready(function () {
-      // Set up base map
+      // Set up the base map
       var map = L.map('map').setView([51.5074, -0.1278], 13);
 
       var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -63,16 +63,16 @@
 
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
 
-      // Load TARDIS GeoJSON
+      // Load TARDIS GeoJSON data
       $.getJSON('./tardis_locations.geojson', function(data) {
         var tardisLayer = L.geoJSON(data, {
           pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
               icon: L.icon({
-                iconUrl: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Doctor_Who_logo_TARDIS.svg',
-                iconSize: [32, 32],
-                iconAnchor: [16, 32],
-                popupAnchor: [0, -32]
+                iconUrl: 'https://your-image-link-here.com/tardis_image.png', // Replace this URL with the image URL
+                iconSize: [50, 50], // Adjust the size as necessary
+                iconAnchor: [25, 50], // Anchor at the bottom center
+                popupAnchor: [0, -50] // Position the popup above the image
               })
             });
           },
@@ -91,3 +91,4 @@
   </script>
 </body>
 </html>
+
