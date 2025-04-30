@@ -13,8 +13,8 @@
     html, body {
       height: 100%;
       margin: 0;
-      background-color: #1a237e; /* Dark blue background */
-      color: yellow; /* Yellow text color */
+      background-color: #1a237e;
+      color: yellow;
       font-family: 'Arial', sans-serif;
     }
 
@@ -32,14 +32,14 @@
     }
 
     .popup-heading {
-      color: white;
+      color: black;
       font-size: 18px;
       font-weight: bold;
       margin-bottom: 5px;
     }
 
     .popup-text {
-      color: yellow;
+      color: black;
       font-size: 14px;
       margin-bottom: 10px;
     }
@@ -51,23 +51,19 @@
 
   <script>
     $(document).ready(function () {
-      // Set up the base map with a dark sky theme
       var map = L.map('map').setView([51.5074, -0.1278], 13);
 
-      // Use a space/galaxy-themed tile layer for the map background
       var spaceTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
-      // Layer control to toggle the base map
       var baseMaps = {
         "Space Theme": spaceTiles
       };
 
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
 
-      // GeoJSON data for TARDIS sightings
       var tardisLocations = {
         "type": "FeatureCollection",
         "features": [
@@ -76,7 +72,7 @@
             "properties": {
               "doctor": "The First Doctor",
               "year": "1963",
-              "description": "The First Doctor's adventures took him to Earth in 1963, where the TARDIS made its first appearance. This marked the beginning of an era where the Doctor could travel through time and space."
+              "description": "The First Doctor's adventures began in 1963, marking the start of the Doctor's time-traveling adventures. This was the first appearance of the TARDIS and the Doctor as we know him today."
             },
             "geometry": {
               "type": "Point",
@@ -88,7 +84,7 @@
             "properties": {
               "doctor": "The Fourth Doctor",
               "year": "1977",
-              "description": "The Fourth Doctor, famously portrayed by Tom Baker, made an iconic appearance in London in 1977. His era is known for its eccentric style and memorable adventures."
+              "description": "The Fourth Doctor, known for his long scarf and wide-brimmed hat, arrived in London in 1977. He quickly became one of the most beloved incarnations, bringing a quirky and whimsical style to the show."
             },
             "geometry": {
               "type": "Point",
@@ -112,7 +108,7 @@
             "properties": {
               "doctor": "The Eleventh Doctor",
               "year": "2011",
-              "description": "The Eleventh Doctor, portrayed by Matt Smith, arrived in London in 2011. With his signature bow tie and quirky personality, he was a fan-favorite among viewers."
+              "description": "With his bow tie and fez, the Eleventh Doctor brought a sense of wonder and oddity to the series. In 2011, he faced a series of challenges while exploring the intricacies of time and space."
             },
             "geometry": {
               "type": "Point",
@@ -124,7 +120,7 @@
             "properties": {
               "doctor": "The Thirteenth Doctor",
               "year": "2018",
-              "description": "Jodie Whittaker's Thirteenth Doctor brought a new dynamic to the Doctor Who universe. Her adventures in London in 2018 continue to resonate with fans."
+              "description": "Jodie Whittaker's Thirteenth Doctor brought a fresh and dynamic energy to the role. Her first appearance in 2018 was an exciting new chapter in the Doctor Who legacy."
             },
             "geometry": {
               "type": "Point",
@@ -136,7 +132,7 @@
             "properties": {
               "doctor": "The Fifteenth Doctor",
               "year": "2024",
-              "description": "The Fifteenth Doctor, played by Ncuti Gatwa, made waves in 2024, bringing new energy and stories to the TARDIS as the latest incarnation of the Doctor."
+              "description": "The Fifteenth Doctor, played by Ncuti Gatwa, brings new stories and adventures to the TARDIS. Fans are eager to see how this new incarnation will evolve the Doctor’s journey in the years to come."
             },
             "geometry": {
               "type": "Point",
@@ -150,10 +146,10 @@
         pointToLayer: function(feature, latlng) {
           return L.marker(latlng, {
             icon: L.icon({
-              iconUrl: 'https://cdn.imgbin.com/9/8/17/imgbin-eleventh-doctor-silhouette-tardis-doctor-CRuZZUBgeWHBVpLh6V5NpiTgN.jpg', // Replace this URL with your image URL
-              iconSize: [50, 50], // Adjust the size as necessary
-              iconAnchor: [25, 50], // Anchor at the bottom center
-              popupAnchor: [0, -50] // Position the popup above the image
+              iconUrl: 'https://p7.hiclipart.com/preview/1008/277/229/eleventh-doctor-doctor-who-tardis-bluetooth-speaker-wireless-speaker-doctor-who-tardis-thumbnail.jpg',
+              iconSize: [50, 50],
+              iconAnchor: [25, 50],
+              popupAnchor: [0, -50]
             })
           });
         },
