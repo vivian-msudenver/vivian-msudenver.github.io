@@ -13,6 +13,9 @@
     html, body {
       height: 100%;
       margin: 0;
+      background-color: #1a237e; /* Dark blue background */
+      color: yellow; /* Yellow text color */
+      font-family: 'Arial', sans-serif;
     }
 
     #map {
@@ -21,10 +24,11 @@
     }
 
     h1 {
-      color: #003366;
+      color: yellow;
       font-family: "Garamond", serif;
-      font-size: 24px;
+      font-size: 28px;
       text-align: center;
+      margin-top: 20px;
     }
 
     .legend {
@@ -49,16 +53,18 @@
 
   <script>
     $(document).ready(function () {
-      // Set up the base map
+      // Set up the base map with a dark sky theme
       var map = L.map('map').setView([51.5074, -0.1278], 13);
 
-      var OSMTiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      // Use a space/galaxy-themed tile layer for the map background
+      var spaceTiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; OpenStreetMap contributors'
       }).addTo(map);
 
+      // Layer control to toggle the base map
       var baseMaps = {
-        "OpenStreetMap": OSMTiles
+        "Space Theme": spaceTiles
       };
 
       var layerControl = L.control.layers(baseMaps, null).addTo(map);
@@ -69,7 +75,7 @@
           pointToLayer: function(feature, latlng) {
             return L.marker(latlng, {
               icon: L.icon({
-                iconUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnfk_TTztHx5wIaczOhdRcC2CVkmyt_LjPbw&s', // Replace this URL with the image URL
+                iconUrl: 'https://example.com/path/to/your/image.png', // Replace this URL with your image URL
                 iconSize: [50, 50], // Adjust the size as necessary
                 iconAnchor: [25, 50], // Anchor at the bottom center
                 popupAnchor: [0, -50] // Position the popup above the image
@@ -91,4 +97,3 @@
   </script>
 </body>
 </html>
-
